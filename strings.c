@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <tpeb/strings.h>
+#include "strings.h"
 
 
 /* Function in the style of getline */

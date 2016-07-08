@@ -14,7 +14,7 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
-#include <tpeb/atime.h>
+#include "atime.h"
 
 /* Function that returns the current date/time in an atime_time structure */
 atime_time *atime_get_date_now(int clock_type){

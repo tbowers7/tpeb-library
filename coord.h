@@ -16,7 +16,7 @@
 #define COORD_DEC 180
 #define COORD_LST 24
 
-#include <tpeb/astrom.h>
+#include "astrom.h"
 
 /* Function declarations */
 astrom_coords  coord_parserd(char *);

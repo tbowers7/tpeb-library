@@ -11,11 +11,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <tpeb/fileio.h>            // File I/O shortcuts
-#include <tpeb/read_dat_files.h>    // Contains countlines()
-#include <tpeb/coord.h>             // Coordinate header file
-#include <tpeb/catalog.h>           // Catalog header file
-#include <tpeb/strings.h>           // Strings header file
+#include "fileio.h"            // File I/O shortcuts
+#include "read_dat_files.h"    // Contains countlines()
+#include "coord.h"             // Coordinate header file
+#include "catalog.h"           // Catalog header file
+#include "strings.h"           // Strings header file
 
 /* Function for reading a Master Catalog into an array of catalog_lib
    structures.

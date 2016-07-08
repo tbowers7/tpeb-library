@@ -19,10 +19,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include <tpeb/astrom.h>         // Astrometry header file
-#include <tpeb/atime.h>
-#include <tpeb/fileio.h>         // File I/O shortcuts
-#include <tpeb/read_dat_files.h> // Includes countlines() function
+#include "astrom.h"         // Astrometry header file
+#include "atime.h"          // Astronomical time header file
+#include "fileio.h"         // File I/O shortcuts
+#include "read_dat_files.h" // Includes countlines() function
 
 /* Function for calculating angular separation
    Algorithm from "Astronomical Algorithms, 2nd ed", Ch 17, by Jean Meeus */
