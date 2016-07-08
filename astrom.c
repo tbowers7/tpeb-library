@@ -20,7 +20,7 @@
 #include <math.h>
 #include <string.h>
 #include <tpeb/astrom.h>         // Astrometry header file
-#include <tpeb/a_time.h>
+#include <tpeb/atime.h>
 #include <tpeb/fileio.h>         // File I/O shortcuts
 #include <tpeb/read_dat_files.h> // Includes countlines() function
 
@@ -246,7 +246,7 @@ astrom_rst *astrom_get_rst(astrom_coords *object, astrom_location *observer,
     if(circum.alt > alt){
       *updown = 1;
       //fprintf(stderr,"Object is always above altitude %.1f degrees\n",alt);
-      times->m0 = (alpha - a_time_lst(L,JD)) / 360.;
+      times->m0 = (alpha - atime_lst(L,JD)) / 360.;
       // Check ranges on transit time for circumpolar (always up)
       if(times->m0 < 0.) times->m0 += 1.;
       if(times->m0 > 1.) times->m0 -= 1.;
@@ -268,7 +268,7 @@ astrom_rst *astrom_get_rst(astrom_coords *object, astrom_location *observer,
     *updown = 0;
   
   // Calculate times
-  times->m0 = (alpha - a_time_lst(L,JD)) / 360.;
+  times->m0 = (alpha - atime_lst(L,JD)) / 360.;
   times->m1 = times->m0 - acos(cos_H0)*RAD2DEG / 360.;
   times->m2 = times->m0 + acos(cos_H0)*RAD2DEG / 360.;
   

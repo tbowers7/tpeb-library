@@ -1,4 +1,4 @@
-/******** a_time.h ********/
+/******** atime.h ********/
 /* Timothy Ellsworth Bowers
    11 October 2009
 
@@ -9,12 +9,12 @@
 
 */
 
-#if !defined(A_TIME_H)
+#if !defined(ATIME_H)
 
-#define A_TIME_H 1
+#define ATIME_H 1
 
-#define A_TIME_LOCAL 45
-#define A_TIME_GMT   46
+#define ATIME_LOCAL 45
+#define ATIME_GMT   46
 
 /* Structure Definitions */
 typedef struct{
@@ -25,17 +25,17 @@ typedef struct{
   int hour;
   int min;
   double sec;
-} a_time_time;
+} atime_time;
 
 
 /* Function Declarations */
-a_time_time *a_time_get_date_now(int clock_type);
-a_time_time *a_time_get_date(int clock_type, int prevday);
-double a_time_jd(int year, int month, double day);
-double a_time_jd_today();
-double a_time_jd_now();
-double a_time_get_lst(double longitude);
-double a_time_lst(double longitude, double jd);
-char  *a_time_datestring();
+atime_time *atime_get_date_now(int clock_type);
+atime_time *atime_get_date(int clock_type, int prevday);
+double atime_jd(int year, int month, double day);
+double atime_jd_today();
+double atime_jd_now();
+double atime_get_lst(double longitude);
+double atime_lst(double longitude, double jd);
+char  *atime_datestring();
 
 #endif

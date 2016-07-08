@@ -1,4 +1,4 @@
-/******** a_time.c ********/
+/******** a_time.c *******/
 /* Timothy Ellsworth Bowers
    10 June 2009
 
@@ -14,26 +14,26 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
-#include <tpeb/a_time.h>
+#include <tpeb/atime.h>
 
-/* Function that returns the current date/time in an a_time_time structure */
-a_time_time *a_time_get_date_now(int clock_type){
+/* Function that returns the current date/time in an atime_time structure */
+atime_time *atime_get_date_now(int clock_type){
   
   /* Variable Declarations */
-  a_time_time *date;
+  atime_time *date;
   char buf0[81],buf1[81],buf2[81],buf3[81],buf4[81],buf5[81],buf6[81];
   time_t now;
   struct tm *ptr;
   struct timeval tv;
   
   
-  date = (a_time_time *)malloc(sizeof(a_time_time));
+  date = (atime_time *)malloc(sizeof(atime_time));
   
   /* Get time string */
   time(&now);
-  if(clock_type == A_TIME_LOCAL)
+  if(clock_type == ATIME_LOCAL)
     ptr = localtime(&now);  
-  else if(clock_type == A_TIME_GMT)
+  else if(clock_type == ATIME_GMT)
     ptr = gmtime(&now);  
   gettimeofday(&tv, NULL); 
   
@@ -58,18 +58,18 @@ a_time_time *a_time_get_date_now(int clock_type){
   return date;
 }
 
-/* Function that returns the current date/time in an a_time_time structure */
-a_time_time *a_time_get_date(int clock_type, int prevday){
+/* Function that returns the current date/time in an atime_time structure */
+atime_time *atime_get_date(int clock_type, int prevday){
   
   /* Variable Declarations */
-  a_time_time *date;
+  atime_time *date;
   char buf0[81],buf1[81],buf2[81],buf3[81],buf4[81],buf5[81],buf6[81];
   time_t now;
   struct tm *ptr;
   struct timeval tv;
   
   
-  date = (a_time_time *)malloc(sizeof(a_time_time));
+  date = (atime_time *)malloc(sizeof(atime_time));
   
   /* Get # of seconds since Jan. 1, 1970 */
   time(&now);
@@ -78,9 +78,9 @@ a_time_time *a_time_get_date(int clock_type, int prevday){
   now -= (86400 * prevday);
   
   /* Get time string */
-  if(clock_type == A_TIME_LOCAL)
+  if(clock_type == ATIME_LOCAL)
     ptr = localtime(&now);  
-  else if(clock_type == A_TIME_GMT)
+  else if(clock_type == ATIME_GMT)
     ptr = gmtime(&now);  
   gettimeofday(&tv, NULL); 
   
@@ -106,7 +106,7 @@ a_time_time *a_time_get_date(int clock_type, int prevday){
 }
 
 /* Function that calculates JD based on year, month, day */
-double a_time_jd(int year, int month, double day){
+double atime_jd(int year, int month, double day){
   
   int A,B;
   
@@ -128,18 +128,18 @@ double a_time_jd(int year, int month, double day){
 
 
 /* Function that returns today's JD (at 0h GMT) */
-double a_time_jd_today(){
+double atime_jd_today(){
   
-  a_time_time *now;
+  atime_time *now;
   double jd;
 
   /* Get time structure */
-  now = a_time_get_date_now(A_TIME_GMT);
+  now = atime_get_date_now(ATIME_GMT);
   
-  // Use a_time_jd() to calculate the day's JD
-  jd = a_time_jd(now->year, now->month, now->day);
+  // Use atime_jd() to calculate the day's JD
+  jd = atime_jd(now->year, now->month, now->day);
   
-  // Fix memory leak by freeing a_time_time structure.
+  // Fix memory leak by freeing atime_time structure.
   free(now);
   
   return jd;
@@ -147,19 +147,19 @@ double a_time_jd_today(){
 
 
 /* Function that returns the JD of the moment (er, nearest second */
-double a_time_jd_now(){
+double atime_jd_now(){
   
-  a_time_time *now;
+  atime_time *now;
   double daypart,jd_now;
   
   /* Get time structure */
-  now = a_time_get_date_now(A_TIME_GMT);
+  now = atime_get_date_now(ATIME_GMT);
   
   daypart = (now->hour / 24.) + (now->min / 1440.) + (now->sec / 86400.);
   
-  jd_now = a_time_jd_today() + daypart;
+  jd_now = atime_jd_today() + daypart;
   
-  // Fix memory leak by freeing a_time_time structure.
+  // Fix memory leak by freeing atime_time structure.
   free(now);
   
   return jd_now;
@@ -168,19 +168,19 @@ double a_time_jd_now(){
 
 /* Function to calculate the LST, based on current location and time
    The LST is in ddd.dddddd (i.e. degrees past midnight) */
-double a_time_get_lst(double longitude){
+double atime_get_lst(double longitude){
   
   /* Variable Declarations */
   long double jd,jd_now,T,theta_0,lst;  
 
-  /* Get today's JD via a_time_jd() */
-  jd     = a_time_jd_today();
-  jd_now = a_time_jd_now();
+  /* Get today's JD via atime_jd() */
+  jd     = atime_jd_today();
+  jd_now = atime_jd_now();
   
   /* Calculate T */
   T = (jd - 2451545.0) / 36525;
     
-  /* Calculate theta_0 with the aid of a_time_jdnow() */
+  /* Calculate theta_0 with the aid of atime_jdnow() */
   theta_0 = 280.46061837 + (360.98564736629 * (jd_now - 2451545.0)) +
     (0.000387933 * T * T) - (T * T * T / 38710000.);
   
@@ -200,7 +200,7 @@ double a_time_get_lst(double longitude){
 
 /* Function to calculate the LST, at a longitude for a given JD.
    The LST is in ddd.dddddd (i.e. degrees past midnight) */
-double a_time_lst(double longitude, double jd){
+double atime_lst(double longitude, double jd){
   
   /* Variable Declarations */
   long double jd_0h,T,theta_0,lst;  
@@ -213,7 +213,7 @@ double a_time_lst(double longitude, double jd){
   /* Calculate T */
   T = (jd_0h - 2451545.0) / 36525;
     
-  /* Calculate theta_0 with the aid of a_time_jdnow() */
+  /* Calculate theta_0 with the aid of atime_jdnow() */
   theta_0 = 280.46061837 + (360.98564736629 * (jd - 2451545.0)) +
     (0.000387933 * T * T) - (T * T * T / 38710000.);
   
@@ -231,21 +231,21 @@ double a_time_lst(double longitude, double jd){
 }
 
 
-char *a_time_datestring(){
+char *atime_datestring(){
   
   /* Variable Declarations */
   char *string;
-  a_time_time *now;
+  atime_time *now;
   
   /* Get date structure */
-  now = a_time_get_date_now(A_TIME_LOCAL);
+  now = atime_get_date_now(ATIME_LOCAL);
   
   string = (char *)malloc(81 * sizeof(char));
   
   sprintf(string,"%0d-%02d-%02d %02d:%02d:%02.f",now->year,now->month,
 	  now->day,now->hour,now->min,now->sec);
   
-  // Fix memory leak by freeing a_time_time structure.
+  // Fix memory leak by freeing atime_time structure.
   free(now);
   
   return string;
