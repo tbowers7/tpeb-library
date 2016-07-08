@@ -1,0 +1,68 @@
+# @configure_input@
+
+# Package-related substitution variables
+package = @PACKAGE_NAME@
+version = @PACKAGE_VERSION@
+tarname = @PACKAGE_TARNAME@
+distdir = $(tarname)-$(version)
+
+# Prefix-related substitution variables
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
+
+#CFLAGS += -Wall -L/sw/lib -I/sw/include
+#CC = gcc-4
+
+# VPATH-related substitution variables
+srcdir         = @srcdir@
+VPATH          = @srcdir@
+
+
+SOURCES = $(wildcard $(srcdir)/*.c)
+HEADERS := $(SOURCES:.c=.h)
+OBJECTS := $(SOURCES:.c=.o)
+
+all: lib
+
+dist: $(distdir).tar.gz
+
+$(distdir).tar.gz: FORCE $(distdir)
+	tar chof - $(distdir)|\
+	  gzip -9 -c >$(distdir).tar.gz
+	rm -rf $(distdir)
+
+$(distdir):
+	mkdir -p $(distdir)
+	cp $(srcdir)/configure $(distdir)
+	cp $(srcdir)/Makefile.in $(distdir)
+	cp $(srcdir)/$(SOURCES) $(distdir)
+	cp $(srcdir)/$(HEADERS) $(distdir)
+
+distcheck: $(distdir).tar.gz
+	gzip -cd $+ | tar xvf -
+	$(MAKE) -C $(distdir) all clean
+	rm -rf $(distdir)
+	@echo "*** Package $(distdir).tar.gz ready for distribution."
+
+object: $(SOURCES)
+	$(CC) $(CFLAGS) $(SOURCES)
+
+lib: $(OBJECTS)
+	ar -rcs libtpeb.a $(OBJECTS)
+
+clean:
+	-rm -f *.o
+	-rm -f libtpeb.a
+
+Makefile: Makefile.in config.status
+	./config.status $@
+
+config.status: configure
+	./config.status --recheck
+
+FORCE:
+	-rm $(distdir).tar.gz &> /dev/null
+	-rm -rf $(distdir) &> /dev/null
+
+.PHONY: all clean dist distcheck
