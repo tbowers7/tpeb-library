@@ -8,6 +8,7 @@ LT_PREREQ([2.2])
 LT_INIT([dlopen])
 AC_CONFIG_SRCDIR([src/atime.c])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CC
@@ -27,5 +28,6 @@ AC_FUNC_MALLOC
 AC_CHECK_FUNCS([floor gettimeofday pow sqrt strchr strstr])
 
 AC_CONFIG_FILES([Makefile
+                 include/Makefile
 		 src/Makefile])
 AC_OUTPUT
