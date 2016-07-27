@@ -123,13 +123,13 @@
 
 /* Includes for external headers */
 #ifndef HAVE_MATH_H
-  #define HAVE_MATH_H
-  #include <math.h>
+#define HAVE_MATH_H
+#include <math.h>
 #endif
 
 #ifndef HAVE_FITSIO_H
-  #define HAVE_FITSIO_H
-  #include <fitsio.h>
+#define HAVE_FITSIO_H
+#include <fitsio.h>
 #endif
 
 /* Define Constants */

@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "astrom.h"     // Astrometry header file
-#include "coord.h"      // Coordinate header file
+
+#include <tpeb.h>
 
 
 /* Function to parse out RA & Dec from string input

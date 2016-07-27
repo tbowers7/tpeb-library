@@ -16,7 +16,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "imutil.h"
+
+#include <tpeb.h>
 
 /* Function to allocate space for a 2-D array of double */
 double **imutil_alloc_2darray(long *size){

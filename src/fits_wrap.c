@@ -24,8 +24,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>               // To update FITS headers
-#include <fitsio.h>             // Contains CFITSIO routine defs
-#include "imutil.h"             // Contains Image Utility routine defs
+
+#include <tpeb.h>
 
 /* Routine for opening FITS file READONLY with error checking */
 fitsfile *fits_wrap_open_read(char *filename, int *status){

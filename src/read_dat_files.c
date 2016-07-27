@@ -29,7 +29,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "fileio.h"          // Contains file I/O shortcuts
+
+#include <tpeb.h>
 
 
 /* Get number of lines in the file, return as int */
