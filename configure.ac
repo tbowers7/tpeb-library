@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([tpeb-library], [1.0], [tbowers@email.arizona.edu])
+AC_INIT([tpeb-library], [1.0.0], [tbowers@email.arizona.edu])
 AM_INIT_AUTOMAKE
 LT_PREREQ([2.2])
 LT_INIT([dlopen])
