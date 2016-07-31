@@ -209,7 +209,25 @@ void fitswrap_catcherror(int *status){
   
   
   /* Add error-catching code here */
-  // CASE statement using ERROR codes from fitsio.h
+  switch(*status){
+    
+  case FILE_NOT_OPENED :
+    printf("We encountered this one!\n");
+    break;
+    
+  case WRITE_ERROR :
+    printf("This is a write error!\n");
+    break;
+    
+  case FITSWRAP_NOFILE_EXIT :
+    printf("This is using a new error code!\n");
+    break;
+    
+  default :
+    printf("We hit the default... exiting.\n");
+    exit(1);
+  }
+  
   printf("We need to add some error-catching code here...\n");
   
   exit(1);
