@@ -239,9 +239,9 @@ catalog_mmt *catalog_read_mmt(char *filename, int *n);
 catalog_tui *catalog_read_tui(char *filename, int *n);
 
 // coord.c
-astrom_coords  coord_parserd(char *);
-double         coord_dmstodeg(double dms[3], int c_type);
-void           coord_degtodms(double, char *, int c_type);
+astrom_coords coord_parserd(char *);
+double        coord_dmstodeg(double dms[3], int c_type);
+void          coord_degtodms(double, char *, int c_type);
 
 // fileio.c
 FILE *fileopenr(char *);
@@ -271,7 +271,7 @@ void     imutil_transpose(double **, double **, int, int);
 double photom_spect_countrate(double, double, double, double, double);
 
 // read_dat_files.c
-int countlines(FILE *fp);
+int     countlines(FILE *fp);
 double *read_ncolumn(char *filename, int *N, int m);
 double *parse_array(double *total_array, int n_lines, int n_dim);
 
